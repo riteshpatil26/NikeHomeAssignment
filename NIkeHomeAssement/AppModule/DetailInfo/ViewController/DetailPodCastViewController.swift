@@ -7,25 +7,29 @@
 //
 
 import UIKit
+import SafariServices
 
-class DetailPodCastViewController: UIViewController ,DetailPodcastViewControllerInfoDelegate{
+class DetailPodCastViewController: UIViewController ,DetailPodcastViewControllerInfoDelegate,NavigateToitunes{
+    
     var detailView: DetailView!
     var podcastArray:Array<Podcast>?
     var image: UIImage?
     var tempstrings:[String] = []
     var albumGene :Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
     var albumArray:Array<String> = Array<String>()
-
+    var url:String!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-       // Do any additional setup after loading the view.
+        // Do any additional setup after loading the view.
         addBackButton()
-      }
+    }
     func transferInfo(selectedIndex: Int, podcast: Array<Podcast>, Image: UIImage) {
         var temp :String = String()
-        podcastArray = podcast
         self.detailView = DetailView(frame: self.view.frame)
         self.view.addSubview(self.detailView)
+        self.detailView.delegate = self
+        podcastArray = podcast
         self.title = podcastArray?[selectedIndex].name
         self.detailView.imageView.image = Image
         self.detailView.backgroundColor = self.detailView.imageView.image?.averageColor
@@ -55,15 +59,36 @@ class DetailPodCastViewController: UIViewController ,DetailPodcastViewController
         ResManager.attributedString(tempstrings: tempstrings, textView: self.detailView.textView)
         self.detailView.textView.font = ResManager.Font.thin(16)
         self.detailView.textView.adjustFontSize = true
-
+        url = "\(podcastArray![selectedIndex].url!)"
+        
     }
-    
     public func addBackButton(){
         let newBackButton = UIBarButtonItem(image: UIImage(named: "Back")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.back(sender:)))
         self.navigationItem.leftBarButtonItem = newBackButton
     }
     @objc func back(sender: UIBarButtonItem) {
+        self.detailView.removeFromSuperview()
         _ = navigationController?.popViewController(animated: true)
     }
-
+    
+    
+    func showSafariVC(for url: String) {
+        guard let url = URL(string: url) else {
+            //Show an invalid URL error alert
+            print("error in the url")
+            return
+        }
+        
+        let safariVC = SFSafariViewController(url: url)
+        present(safariVC, animated: true)
+    }
+    func navigateItunes() {
+        showSafariVC(for: url!)
+//        print(url!)
+//        if #available(iOS 10.0, *) {
+//            UIApplication.shared.open(URL(string: "\(url!)")!, options: [:], completionHandler: nil)
+//        } else {
+//            UIApplication.shared.openURL(URL(string: "\(url!)")!)
+//        }
+    }
 }

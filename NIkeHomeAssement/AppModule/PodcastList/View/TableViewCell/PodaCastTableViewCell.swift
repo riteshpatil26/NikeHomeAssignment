@@ -16,6 +16,7 @@ class PodaCastTableViewCell: UITableViewCell {
     var albumName: UILabel = UILabel()
     var artistLabel: UILabel = UILabel()
     var activityIndicator : UIActivityViewController!
+    var activityIndicatorView: ActivityIndicator = ActivityIndicator()
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -29,7 +30,7 @@ class PodaCastTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         addContentView()
-        
+        //activityIndicatorView.showActivityIndicatory(view: albumImage, width: 30, height: 30)
     }
     func addContentView(){
         self.addSubview(mainView)
@@ -42,7 +43,6 @@ class PodaCastTableViewCell: UITableViewCell {
         
         /* Add ImageView */
         self.mainView.addSubview(self.albumImage)
-        self.albumImage.backgroundColor = UIColor.yellow
         albumImage.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint(item: albumImage, attribute: NSLayoutConstraint.Attribute.centerY, relatedBy: NSLayoutConstraint.Relation.equal, toItem: mainView, attribute: NSLayoutConstraint.Attribute.centerY, multiplier: 1, constant: 0).isActive = true
        NSLayoutConstraint(item: albumImage, attribute: NSLayoutConstraint.Attribute.width, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute, multiplier: 1, constant: 70).isActive = true
@@ -66,22 +66,30 @@ class PodaCastTableViewCell: UITableViewCell {
         
         self.stackView.addSubview(self.albumName)
         albumName.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint(item: albumName, attribute: NSLayoutConstraint.Attribute.top, relatedBy: NSLayoutConstraint.Relation.equal, toItem: stackView, attribute: NSLayoutConstraint.Attribute.top, multiplier: 1, constant: 0).isActive = true
+        NSLayoutConstraint(item: albumName, attribute: NSLayoutConstraint.Attribute.top, relatedBy: NSLayoutConstraint.Relation.equal, toItem: stackView, attribute: NSLayoutConstraint.Attribute.top, multiplier: 1, constant: 5).isActive = true
         NSLayoutConstraint(item: albumName, attribute: NSLayoutConstraint.Attribute.left, relatedBy: NSLayoutConstraint.Relation.equal, toItem: stackView, attribute: NSLayoutConstraint.Attribute.left, multiplier: 1, constant: 0).isActive = true
         NSLayoutConstraint(item: albumName, attribute: NSLayoutConstraint.Attribute.right, relatedBy: NSLayoutConstraint.Relation.equal, toItem: stackView, attribute: NSLayoutConstraint.Attribute.right, multiplier: 1, constant: 0).isActive = true
-        self.albumName.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        self.albumName.heightAnchor.constraint(equalToConstant: 30).isActive = true
         
         /* Add artistLabel */
         self.stackView.addSubview(self.artistLabel)
         artistLabel.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint(item: artistLabel, attribute: NSLayoutConstraint.Attribute.top, relatedBy: NSLayoutConstraint.Relation.equal, toItem: albumName, attribute: NSLayoutConstraint.Attribute.bottom, multiplier: 1, constant: 0).isActive = true
+        NSLayoutConstraint(item: artistLabel, attribute: NSLayoutConstraint.Attribute.top, relatedBy: NSLayoutConstraint.Relation.equal, toItem: albumName, attribute: NSLayoutConstraint.Attribute.bottom, multiplier: 1, constant: -10).isActive = true
         
         NSLayoutConstraint(item: artistLabel, attribute: NSLayoutConstraint.Attribute.left, relatedBy: NSLayoutConstraint.Relation.equal, toItem: stackView, attribute: NSLayoutConstraint.Attribute.left, multiplier: 1, constant: 0).isActive = true
         NSLayoutConstraint(item: artistLabel, attribute: NSLayoutConstraint.Attribute.right, relatedBy: NSLayoutConstraint.Relation.equal, toItem: stackView, attribute: NSLayoutConstraint.Attribute.right, multiplier: 1, constant: 0).isActive = true
          NSLayoutConstraint(item: artistLabel, attribute: NSLayoutConstraint.Attribute.bottom, relatedBy: NSLayoutConstraint.Relation.equal, toItem: stackView, attribute: NSLayoutConstraint.Attribute.bottom, multiplier: 1, constant: 0).isActive = true
        
-        self.artistLabel.text = "SubLabel"
-        self.albumName.text = "TitleLabel"
+        self.albumImage.image = UIImage(named: "podcast")
+        self.artistLabel.text = "N/A"
+        self.albumName.text = "--"
+        self.albumName.font = ResManager.Font.bold(16)
+        self.albumName.textColor = UIColor.white
+        self.albumName.adjustFontSize = true
+        self.albumName.minimumScaleFactor = 0.7
+        self.artistLabel.font = ResManager.Font.thin(12)
+        self.artistLabel.textColor = UIColor.lightGray
+        self.artistLabel.adjustFontSize = true
         
         
         

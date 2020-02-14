@@ -9,7 +9,7 @@
 import UIKit
 
 class Podcast: NSObject {
-
+    
     var artistName:String?
     var id:String?
     var releaseDate :String?
@@ -19,6 +19,7 @@ class Podcast: NSObject {
     var artistUrl :String?
     var artworkUrl_100 : String?
     var url:String?
+    var genre :NSArray = NSArray()
     
     init(obj : Podcast){
         self.id = obj.id
@@ -30,6 +31,7 @@ class Podcast: NSObject {
         self.artistUrl = obj.artistUrl
         self.artworkUrl_100 = obj.artworkUrl_100
         self.url = obj.url
+        self.genre = obj.genre
     }
     override init(){
         self.id = "1496639180"
@@ -40,8 +42,8 @@ class Podcast: NSObject {
         self.copyright = "℗ 2020 Def Jam Recordings, a division of UMG Recordings, Inc."
         self.artistUrl = "https://music.apple.com/us/artist/justin-bieber/320569549?app=music"
         self.artworkUrl_100 = "https://is1-ssl.mzstatic.com/image/thumb/Music123/v4/49/c1/04/49c10497-421b-5480-0e88-2b1b9c7b038c/20UMGIM03126.rgb.jpg/200x200bb.png"
-
         self.url = "https://music.apple.com/us/album/changes/1496639180?app=music"
+        self.genre = []
     }
     init(dictData:Dictionary<String,AnyObject>){
         if let top = dictData["id"] {
@@ -68,6 +70,11 @@ class Podcast: NSObject {
         if let top = dictData["artworkUrl100"]{
             self.artworkUrl_100 = top as? String
         }
+        if let top = dictData["url"]{
+            self.url = top as? String
+        }
+        if let top = dictData["genres"] as? NSArray{
+            self.genre = top
+        }
     }
-    
 }

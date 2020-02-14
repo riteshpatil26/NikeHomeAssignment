@@ -7,8 +7,9 @@
 //
 
 import Foundation
+import UIKit
 extension PodCastViewController{
-    func getCountryLists() {
+    func getPodcastList() {
         let APIUrl = NSURL(string:"\(BASE_URL)")
         let sessionConfig = URLSessionConfiguration.default
         sessionConfig.timeoutIntervalForRequest = 20.0
@@ -18,9 +19,10 @@ extension PodCastViewController{
         let defaultSession = URLSession(configuration: sessionConfig)
         let task = defaultSession.dataTask(with: APIUrl! as URL) { (data, response, error) in
             if data == nil {
-                print("dataTaskWithRequest error: \(String(describing: error?.localizedDescription))")
                self.activityIndicatorView.hideActivityIndicator()
-               //AlertView.instance.showAlert(title: "Failure", message: "\(error?.localizedDescription)", alertType: .failure)
+                self.refreshControl.endRefreshing()
+                self.showSimpleAlert(message: "\(error?.localizedDescription)")
+                
                 return
             }
             do{
@@ -28,9 +30,12 @@ extension PodCastViewController{
                 let jsonResponse = try JSONSerialization.jsonObject(with:
                     data!, options: []) as AnyObject
                let arraylist = (jsonResponse["feed"]as! Dictionary<String,Any>)["results"] as! Array<Dictionary<String,Any>>
+               
+                self.podCastArray.removeAll()
                 for itmet in arraylist{
                     self.podCastArray.append(Podcast(dictData: itmet as Dictionary<String, AnyObject>))
                 }
+                
                 DispatchQueue.global().async {
                     DispatchQueue.main.async {
                         self.podCastListtableView.dataSource = self
@@ -38,15 +43,35 @@ extension PodCastViewController{
                         self.podCastListtableView.reloadData()
                         self.podCastListtableView.alpha = 1
                         self.activityIndicatorView.hideActivityIndicator()
-                       // self.refreshControl.endRefreshing()
+                        self.refreshControl.endRefreshing()
                     }
                 }
             } catch let parsingError {
                 //AlertView.instance.showAlert(title: "Failure", message: "\(parsingError)", alertType: .failure)
+                 self.refreshControl.endRefreshing()
+                 self.showSimpleAlert(message: "\(parsingError)")
+              
                 print("Error", parsingError)
             }
         }
         task.taskDescription = "RssFeedList"
         task.resume()
     }
+    
+    
+    func showSimpleAlert(message:String) {
+        let alert = UIAlertController(title: "NikeHomeAssement", message: "\(message)",preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "Retry",
+                                      style: UIAlertAction.Style.default,
+                                      handler: {(_: UIAlertAction!) in
+                            self.getPodcastApi()
+        }))
+        self.present(alert, animated: true, completion: nil)
+        
+    }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    self.view.endEditing(true)
 }
+}
+
+

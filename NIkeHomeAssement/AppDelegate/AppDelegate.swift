@@ -13,10 +13,23 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
-
+   
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        window = UIWindow(frame: UIScreen.main.bounds)
+        let podcastViewController = PodCastViewController()
+        let nav :UINavigationController = UINavigationController()
+        nav.viewControllers = [podcastViewController]
+        nav.navigationBar.barTintColor = UIColor.black
+        nav.navigationBar.isTranslucent = true
+        podcastViewController.view.backgroundColor = UIColor.black.withAlphaComponent(0.9);
+        nav.navigationBar.titleTextAttributes = [
+            NSAttributedString.Key.foregroundColor: UIColor.white,
+            NSAttributedString.Key.font : ResManager.Font.bold(20.0)
+        ]
+        
+        window!.rootViewController = nav
+       window!.makeKeyAndVisible()
         return true
     }
 

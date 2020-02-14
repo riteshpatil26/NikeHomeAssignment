@@ -1,11 +1,9 @@
 //
 //  ImageService.swift
-  //  OnlineHomeAssement
+//  NIkeHomeAssement
 //
-//
-//  Created by Ritesh Patil on 2/5/20.
-//  Copyright © 2020 Ritesh Patil. All rights reserved.
-//
+//  Created by Ritesh Patil on 2/10/20.
+//  Copyright © 2020 Ritesh Patil. All rights reserved//
 
 
 import Foundation
