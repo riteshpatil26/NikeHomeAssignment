@@ -23,6 +23,7 @@ class DetailPodCastViewController: UIViewController ,DetailPodcastViewController
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         addBackButton()
+        self.navigationController?.navigationBar.backgroundColor = UIColor.clear
     }
     /* Delegate Method from which all Object Info can be able to take */
     func transferInfo(selectedIndex: Int, podcast: Array<Podcast>, Image: UIImage) {
@@ -36,7 +37,7 @@ class DetailPodCastViewController: UIViewController ,DetailPodcastViewController
         self.detailView.backgroundColor = UIColor.clear
         createGradientLayer()
         self.tempstrings.removeAll()
-        self.tempstrings.append("ArtistName : \(String(describing: podcastArray![selectedIndex].artistName!))")
+        self.tempstrings.append("Artist Name : \(String(describing: podcastArray![selectedIndex].artistName!))")
         self.tempstrings.append("")
         self.tempstrings.append("CopyRight : \(String(describing: podcastArray![selectedIndex].copyright!))")
         self.tempstrings.append("")
@@ -88,5 +89,12 @@ class DetailPodCastViewController: UIViewController ,DetailPodcastViewController
         self.detailView.layer.insertSublayer(gradientLayer!, at: 0)
     }
     
+    func attributedString(string : String,font : UIFont) -> NSAttributedString{
+        let quote = string
+        let font = font
+        let attributes = [NSAttributedString.Key.font: font]
+        let attributedQuote = NSAttributedString(string: quote, attributes: attributes)
+        return attributedQuote
+    }
     
 }

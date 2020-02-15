@@ -22,7 +22,6 @@ extension PodCastViewController{
                 self.activityIndicatorView.hideActivityIndicator()
                 self.refreshControl.endRefreshing()
                 self.showSimpleAlert(message: "\(error?.localizedDescription)")
-                
                 return
             }
             do{

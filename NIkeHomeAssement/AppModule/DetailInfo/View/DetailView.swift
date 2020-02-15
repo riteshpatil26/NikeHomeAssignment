@@ -36,6 +36,8 @@ class DetailView: UIView {
         btnToItunes.layer.borderColor = UIColor.white.cgColor
         NSLayoutConstraint(item: btnToItunes, attribute: NSLayoutConstraint.Attribute.height, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute, multiplier: 0.8, constant: 45).isActive = true
         self.btnToItunes.backgroundColor = UIColor.black.withAlphaComponent(0.9)
+        self.btnToItunes.adjustFontSize = true
+        self.btnToItunes.titleLabel?.font = ResManager.Font.medium(18)
         self.btnToItunes.titleLabel?.textColor = UIColor.white
         self.btnToItunes.setTitle("ITUNES CONNECT", for: .normal)
         

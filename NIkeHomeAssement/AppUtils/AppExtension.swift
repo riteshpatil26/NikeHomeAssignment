@@ -22,7 +22,7 @@ var IS_IPHONEXS =  (SCREEN_MAX_LENGTH == 812) ? true : false
 // MARK: Adjust UILabel font size according to device screen size Extention
 extension UILabel {
     /// This method set Font size according to phone model
-
+    
     var adjustFontSize: Bool{
         set {
             if newValue {
@@ -54,7 +54,7 @@ extension UILabel {
     
 }
 extension UITextView {
-   var adjustFontSize: Bool{
+    var adjustFontSize: Bool{
         set {
             if newValue {
                 let currentFont = self.font
@@ -100,34 +100,31 @@ extension UIImage {
     }
 }
 extension UIButton {
-  var adjustFontSize: Bool{
+    var adjustFontSize: Bool{
         set {
             if newValue {
                 let currentFont = self.titleLabel?.font
                 var sizeScale: CGFloat = 1
-                
-              
-               if IS_IPHONE_5 {
+                if IS_IPHONE_5 {
                     sizeScale = 0.8
-                }
-                else if IS_IPHONE_6 {
+                }else if IS_IPHONE_6 {
+                    sizeScale = 1.0
+                }else if IS_IPHONE_6P {
                     sizeScale = 1.1
-                }
-                else if IS_IPHONE_6P {
-                    sizeScale = 1.20
-                }else{
+                }else if IS_IPHONEXR{
                     sizeScale = 1.10
+                }else if IS_IPHONEXS{
+                    sizeScale = 1.1
+                }else{
+                    sizeScale = 1.2
                 }
-                
-                self.titleLabel?.font = (currentFont?.withSize((currentFont?.pointSize)! * sizeScale))!
-            }        }
+                self.titleLabel!.font = (currentFont?.withSize((currentFont?.pointSize)! * sizeScale))!
+            }   }
         
         get {
             return false
         }
     }
-    
-   
     override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.isHighlighted = true
         super.touchesBegan(touches, with: event)

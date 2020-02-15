@@ -9,9 +9,7 @@ import Foundation
 import UIKit
 
 class ResManager {
-   
-    
-    struct Font {
+   struct Font {
         static let bold = { (size: CGFloat) in
             UIFont(name: "myriad-set-pro_bold_3", size: size) ?? UIFont.systemFont(ofSize: size)
         }
@@ -55,6 +53,5 @@ class ResManager {
         
     }
 
-    
 }
 
