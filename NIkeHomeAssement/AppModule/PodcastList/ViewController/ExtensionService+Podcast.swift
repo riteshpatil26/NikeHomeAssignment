@@ -19,7 +19,7 @@ extension PodCastViewController{
         let defaultSession = URLSession(configuration: sessionConfig)
         let task = defaultSession.dataTask(with: APIUrl! as URL) { (data, response, error) in
             if data == nil {
-               self.activityIndicatorView.hideActivityIndicator()
+                self.activityIndicatorView.hideActivityIndicator()
                 self.refreshControl.endRefreshing()
                 self.showSimpleAlert(message: "\(error?.localizedDescription)")
                 
@@ -29,13 +29,11 @@ extension PodCastViewController{
                 //here dataResponse received from a network request
                 let jsonResponse = try JSONSerialization.jsonObject(with:
                     data!, options: []) as AnyObject
-               let arraylist = (jsonResponse["feed"]as! Dictionary<String,Any>)["results"] as! Array<Dictionary<String,Any>>
-               
+                let arraylist = (jsonResponse["feed"]as! Dictionary<String,Any>)["results"] as! Array<Dictionary<String,Any>>
                 self.podCastArray.removeAll()
                 for itmet in arraylist{
                     self.podCastArray.append(Podcast(dictData: itmet as Dictionary<String, AnyObject>))
                 }
-                
                 DispatchQueue.global().async {
                     DispatchQueue.main.async {
                         self.podCastListtableView.dataSource = self
@@ -47,11 +45,8 @@ extension PodCastViewController{
                     }
                 }
             } catch let parsingError {
-                //AlertView.instance.showAlert(title: "Failure", message: "\(parsingError)", alertType: .failure)
-                 self.refreshControl.endRefreshing()
-                 self.showSimpleAlert(message: "\(parsingError)")
-              
-                print("Error", parsingError)
+                self.refreshControl.endRefreshing()
+                self.showSimpleAlert(message: "\(parsingError)")
             }
         }
         task.taskDescription = "RssFeedList"
@@ -60,18 +55,14 @@ extension PodCastViewController{
     
     
     func showSimpleAlert(message:String) {
-        let alert = UIAlertController(title: "NikeHomeAssement", message: "\(message)",preferredStyle: UIAlertController.Style.alert)
+        let alert = UIAlertController(title: kAPP_NAME, message: "\(message)",preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "Retry",
                                       style: UIAlertAction.Style.default,
                                       handler: {(_: UIAlertAction!) in
-                            self.getPodcastApi()
+                                        self.getPodcastApi()
         }))
         self.present(alert, animated: true, completion: nil)
-        
     }
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-    self.view.endEditing(true)
-}
 }
 
 

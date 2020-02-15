@@ -9,7 +9,7 @@
 import UIKit
 
 class Podcast: NSObject {
-    
+    /* Response Parameters */
     var artistName:String?
     var id:String?
     var releaseDate :String?
@@ -20,7 +20,7 @@ class Podcast: NSObject {
     var artworkUrl_100 : String?
     var url:String?
     var genre :NSArray = NSArray()
-    
+    /* Initialisation Object */
     init(obj : Podcast){
         self.id = obj.id
         self.name = obj.name
@@ -45,6 +45,7 @@ class Podcast: NSObject {
         self.url = "https://music.apple.com/us/album/changes/1496639180?app=music"
         self.genre = []
     }
+    /* Initialise Dictionay */
     init(dictData:Dictionary<String,AnyObject>){
         if let top = dictData["id"] {
             self.id = top as? String

@@ -7,10 +7,10 @@
 //
 
 import UIKit
+
 protocol DetailPodcastViewControllerInfoDelegate {
     func transferInfo(selectedIndex :Int,podcast :Array<Podcast>,Image:UIImage)
 }
-
 class PodCastViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
     var podCastListtableView: UITableView = UITableView()
     var podCastArray: Array<Podcast> = Array<Podcast>()
@@ -18,6 +18,7 @@ class PodCastViewController: UIViewController,UITableViewDelegate,UITableViewDat
     public let refreshControl = UIRefreshControl()
     var delegate:DetailPodcastViewControllerInfoDelegate?
     var vc = DetailPodCastViewController()
+    //#MARK: View Life Cycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "ALBUMS"
@@ -35,7 +36,6 @@ class PodCastViewController: UIViewController,UITableViewDelegate,UITableViewDat
             self.getPodcastApi()
         }
     }
-    
     public func addTableView(){
         self.view.addSubview(self.podCastListtableView)
         self.podCastListtableView.alpha = 0
@@ -48,6 +48,8 @@ class PodCastViewController: UIViewController,UITableViewDelegate,UITableViewDat
         podCastListtableView.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 0).isActive = true
         
     }
+    
+    /*TableViewDelegates and Data Source Method */
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.podCastArray.count
     }
@@ -89,6 +91,7 @@ class PodCastViewController: UIViewController,UITableViewDelegate,UITableViewDat
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80.0
     }
+    /*#MARK:Utility Methods */
     public func getPodcastApi(){
         if Network.iSConnectedToNetwork(){
             self.getPodcastList()

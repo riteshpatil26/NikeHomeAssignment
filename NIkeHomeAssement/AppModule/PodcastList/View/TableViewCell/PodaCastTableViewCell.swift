@@ -9,28 +9,24 @@
 import UIKit
 
 class PodaCastTableViewCell: UITableViewCell {
-
+    
+    /* Initialisation of View  */
     var mainView :UIView = UIView()
     var albumImage: UIImageView = UIImageView()
     var stackView: UIView = UIView()
     var albumName: UILabel = UILabel()
     var artistLabel: UILabel = UILabel()
-    var activityIndicator : UIActivityViewController!
-    var activityIndicatorView: ActivityIndicator = ActivityIndicator()
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
- 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
     }
-    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         addContentView()
-        //activityIndicatorView.showActivityIndicatory(view: albumImage, width: 30, height: 30)
     }
     func addContentView(){
         self.addSubview(mainView)
@@ -45,10 +41,10 @@ class PodaCastTableViewCell: UITableViewCell {
         self.mainView.addSubview(self.albumImage)
         albumImage.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint(item: albumImage, attribute: NSLayoutConstraint.Attribute.centerY, relatedBy: NSLayoutConstraint.Relation.equal, toItem: mainView, attribute: NSLayoutConstraint.Attribute.centerY, multiplier: 1, constant: 0).isActive = true
-       NSLayoutConstraint(item: albumImage, attribute: NSLayoutConstraint.Attribute.width, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute, multiplier: 1, constant: 70).isActive = true
-       NSLayoutConstraint(item: albumImage, attribute: NSLayoutConstraint.Attribute.height, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute, multiplier: 1, constant: 70).isActive = true
-       NSLayoutConstraint(item: albumImage, attribute: NSLayoutConstraint.Attribute.top, relatedBy: NSLayoutConstraint.Relation.equal, toItem: mainView, attribute: NSLayoutConstraint.Attribute.top, multiplier: 1, constant: 5).isActive = true
-       NSLayoutConstraint(item: albumImage, attribute: NSLayoutConstraint.Attribute.bottom, relatedBy: NSLayoutConstraint.Relation.equal, toItem: mainView, attribute: NSLayoutConstraint.Attribute.bottom, multiplier: 1, constant: -5).isActive = true
+        NSLayoutConstraint(item: albumImage, attribute: NSLayoutConstraint.Attribute.width, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute, multiplier: 1, constant: 70).isActive = true
+        NSLayoutConstraint(item: albumImage, attribute: NSLayoutConstraint.Attribute.height, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute, multiplier: 1, constant: 70).isActive = true
+        NSLayoutConstraint(item: albumImage, attribute: NSLayoutConstraint.Attribute.top, relatedBy: NSLayoutConstraint.Relation.equal, toItem: mainView, attribute: NSLayoutConstraint.Attribute.top, multiplier: 1, constant: 5).isActive = true
+        NSLayoutConstraint(item: albumImage, attribute: NSLayoutConstraint.Attribute.bottom, relatedBy: NSLayoutConstraint.Relation.equal, toItem: mainView, attribute: NSLayoutConstraint.Attribute.bottom, multiplier: 1, constant: -5).isActive = true
         NSLayoutConstraint(item: albumImage, attribute: NSLayoutConstraint.Attribute.left, relatedBy: NSLayoutConstraint.Relation.equal, toItem: mainView, attribute: NSLayoutConstraint.Attribute.left, multiplier: 1, constant: 5).isActive = true
         
         
@@ -78,8 +74,7 @@ class PodaCastTableViewCell: UITableViewCell {
         
         NSLayoutConstraint(item: artistLabel, attribute: NSLayoutConstraint.Attribute.left, relatedBy: NSLayoutConstraint.Relation.equal, toItem: stackView, attribute: NSLayoutConstraint.Attribute.left, multiplier: 1, constant: 0).isActive = true
         NSLayoutConstraint(item: artistLabel, attribute: NSLayoutConstraint.Attribute.right, relatedBy: NSLayoutConstraint.Relation.equal, toItem: stackView, attribute: NSLayoutConstraint.Attribute.right, multiplier: 1, constant: 0).isActive = true
-         NSLayoutConstraint(item: artistLabel, attribute: NSLayoutConstraint.Attribute.bottom, relatedBy: NSLayoutConstraint.Relation.equal, toItem: stackView, attribute: NSLayoutConstraint.Attribute.bottom, multiplier: 1, constant: 0).isActive = true
-       
+        NSLayoutConstraint(item: artistLabel, attribute: NSLayoutConstraint.Attribute.bottom, relatedBy: NSLayoutConstraint.Relation.equal, toItem: stackView, attribute: NSLayoutConstraint.Attribute.bottom, multiplier: 1, constant: 0).isActive = true
         self.albumImage.image = UIImage(named: "podcast")
         self.artistLabel.text = "N/A"
         self.albumName.text = "--"
@@ -90,17 +85,10 @@ class PodaCastTableViewCell: UITableViewCell {
         self.artistLabel.font = ResManager.Font.thin(12)
         self.artistLabel.textColor = UIColor.lightGray
         self.artistLabel.adjustFontSize = true
-        
-        
-        
-        
-        
-        
-        
     }
-
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
 }

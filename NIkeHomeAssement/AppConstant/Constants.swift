@@ -11,3 +11,4 @@ import Foundation
 import UIKit
 let BASE_URL = "https://rss.itunes.apple.com/api/v1/us/apple-music/coming-soon/all/100/explicit.json"
 let kMAIN_THEME_COLOR = UIColor.white
+let kAPP_NAME = "NikeHomeAssement"

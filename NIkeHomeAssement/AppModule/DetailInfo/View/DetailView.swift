@@ -7,10 +7,13 @@
 //
 
 import UIKit
+/* Delegate created to navigate to itunes store to particular URL */
 protocol NavigateToitunes{
     func navigateItunes()
 }
+/*  View class whose object is created in DetailPodCastConttoller */
 class DetailView: UIView {
+    //#MARK:View Intialisation
     var btnToItunes : UIButton = UIButton()
     var imageViewSuperView: UIView = UIView()
     var imageView: UIImageView = UIImageView()
@@ -20,7 +23,9 @@ class DetailView: UIView {
         super.init(frame: frame)
         addView()
     }
+    //#MARK: Initialisation of view and AutoLayout
     func addView(){
+        /* Creation of Button */
         self.addSubview(btnToItunes)
         self.btnToItunes.translatesAutoresizingMaskIntoConstraints = false
         btnToItunes.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant:-20).isActive = true
@@ -41,11 +46,10 @@ class DetailView: UIView {
         }else{
             imageViewSuperView.topAnchor.constraint(equalTo: self.topAnchor, constant: 97).isActive = true
         }
-        
         imageViewSuperView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10).isActive = true
         imageViewSuperView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10).isActive = true
         NSLayoutConstraint(item: imageViewSuperView, attribute: NSLayoutConstraint.Attribute.height, relatedBy: NSLayoutConstraint.Relation.equal, toItem: self, attribute: NSLayoutConstraint.Attribute.height, multiplier: self.imageViewSuperView.frame.height / self.frame.height , constant: 350).isActive = true
-        
+        /* ImageView */
         self.addSubview(imageView)
         self.imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.topAnchor.constraint(equalTo: imageViewSuperView.topAnchor, constant: 10).isActive = true
@@ -53,7 +57,7 @@ class DetailView: UIView {
         imageView.leftAnchor.constraint(equalTo: imageViewSuperView.leftAnchor, constant: 10).isActive = true
         imageView.bottomAnchor.constraint(equalTo: imageViewSuperView.bottomAnchor, constant: -10).isActive = true
         self.imageView.image = UIImage(named: "podcast")
-        
+        /*TextView */
         self.addSubview(textView)
         self.textView.translatesAutoresizingMaskIntoConstraints = false
         textView.topAnchor.constraint(equalTo: imageViewSuperView.bottomAnchor, constant: 0).isActive = true

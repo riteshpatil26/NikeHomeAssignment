@@ -7,10 +7,9 @@
 //
 
 import UIKit
-import SafariServices
 
 class DetailPodCastViewController: UIViewController ,DetailPodcastViewControllerInfoDelegate,NavigateToitunes{
-    
+    // #MARK: Local Variables
     var detailView: DetailView!
     var podcastArray:Array<Podcast>?
     var image: UIImage?
@@ -19,12 +18,13 @@ class DetailPodCastViewController: UIViewController ,DetailPodcastViewController
     var albumArray:Array<String> = Array<String>()
     var url:String!
     var gradientLayer: CAGradientLayer!
+    //#MARK:View LifeCycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         addBackButton()
     }
-    
+    /* Delegate Method from which all Object Info can be able to take */
     func transferInfo(selectedIndex: Int, podcast: Array<Podcast>, Image: UIImage) {
         var temp :String = String()
         self.detailView = DetailView(frame: self.view.frame)
@@ -35,7 +35,6 @@ class DetailPodCastViewController: UIViewController ,DetailPodcastViewController
         self.detailView.imageView.image = Image
         self.detailView.backgroundColor = UIColor.clear
         createGradientLayer()
-        //  self.detailView.backgroundColor =
         self.tempstrings.removeAll()
         self.tempstrings.append("ArtistName : \(String(describing: podcastArray![selectedIndex].artistName!))")
         self.tempstrings.append("")
@@ -65,6 +64,8 @@ class DetailPodCastViewController: UIViewController ,DetailPodcastViewController
         self.detailView.textView.adjustFontSize = true
         url = "\(podcastArray![selectedIndex].url!)"
     }
+    
+    //#MARK:Utility Methods
     public func addBackButton(){
         let newBackButton = UIBarButtonItem(image: UIImage(named: "Back")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.back(sender:)))
         self.navigationItem.leftBarButtonItem = newBackButton
@@ -73,7 +74,6 @@ class DetailPodCastViewController: UIViewController ,DetailPodcastViewController
         self.detailView.removeFromSuperview()
         _ = navigationController?.popViewController(animated: true)
     }
-    
     func navigateItunes() {
         if #available(iOS 10.0, *) {
             UIApplication.shared.open(URL(string: "\(url!)")!, options: [:], completionHandler: nil)
