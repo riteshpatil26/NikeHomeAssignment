@@ -27,6 +27,8 @@ class DetailView: UIView {
         btnToItunes.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -20).isActive = true
         btnToItunes.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 20).isActive = true
         btnToItunes.addTarget(self, action: #selector(navigateToItunes), for: .touchUpInside)
+        btnToItunes.layer.borderWidth = 1
+        btnToItunes.layer.borderColor = UIColor.white.cgColor
         NSLayoutConstraint(item: btnToItunes, attribute: NSLayoutConstraint.Attribute.height, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute, multiplier: 0.8, constant: 45).isActive = true
         self.btnToItunes.backgroundColor = UIColor.black.withAlphaComponent(0.9)
         self.btnToItunes.titleLabel?.textColor = UIColor.white
@@ -50,9 +52,7 @@ class DetailView: UIView {
         imageView.rightAnchor.constraint(equalTo: imageViewSuperView.rightAnchor, constant: -10).isActive = true
         imageView.leftAnchor.constraint(equalTo: imageViewSuperView.leftAnchor, constant: 10).isActive = true
         imageView.bottomAnchor.constraint(equalTo: imageViewSuperView.bottomAnchor, constant: -10).isActive = true
-        
         self.imageView.image = UIImage(named: "podcast")
-        
         
         self.addSubview(textView)
         self.textView.translatesAutoresizingMaskIntoConstraints = false
@@ -60,11 +60,11 @@ class DetailView: UIView {
         textView.rightAnchor.constraint(equalTo: self.rightAnchor, constant:-10).isActive = true
         textView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10).isActive = true
         textView.bottomAnchor.constraint(equalTo: btnToItunes.topAnchor, constant: -10).isActive = true
-        textView.font = ResManager.Font.medium(20)
-        textView.adjustFontSize = true
         textView.isEditable = false
         textView.isSelectable  = false
         textView.showsVerticalScrollIndicator = true
+        textView.textColor = UIColor.white
+        textView.backgroundColor = UIColor.clear
     }
     @objc func navigateToItunes(sender: UIButton!) {
         self.delegate?.navigateItunes()

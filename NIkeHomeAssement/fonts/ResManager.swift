@@ -43,10 +43,6 @@ class ResManager {
     }
     
     static func attributedString(tempstrings :Array<String>,textView :UITextView){
-       
-        textView.font = ResManager.Font.text(20)
-        textView.adjustFontSize = true
-      //  let attributesDictionary = [NSAttributedString.Key.font : textView.font]
         let fullAttributedString = NSMutableAttributedString(string: "", attributes:nil)
         for string: String in (tempstrings){
             let formattedString: String = "\(string)\n"
@@ -61,3 +57,4 @@ class ResManager {
 
     
 }
+

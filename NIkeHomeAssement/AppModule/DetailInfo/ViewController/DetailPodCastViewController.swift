@@ -18,12 +18,13 @@ class DetailPodCastViewController: UIViewController ,DetailPodcastViewController
     var albumGene :Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
     var albumArray:Array<String> = Array<String>()
     var url:String!
-    
+    var gradientLayer: CAGradientLayer!
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         addBackButton()
     }
+    
     func transferInfo(selectedIndex: Int, podcast: Array<Podcast>, Image: UIImage) {
         var temp :String = String()
         self.detailView = DetailView(frame: self.view.frame)
@@ -32,7 +33,9 @@ class DetailPodCastViewController: UIViewController ,DetailPodcastViewController
         podcastArray = podcast
         self.title = podcastArray?[selectedIndex].name
         self.detailView.imageView.image = Image
-        self.detailView.backgroundColor = self.detailView.imageView.image?.averageColor
+        self.detailView.backgroundColor = UIColor.clear
+        createGradientLayer()
+        //  self.detailView.backgroundColor =
         self.tempstrings.removeAll()
         self.tempstrings.append("ArtistName : \(String(describing: podcastArray![selectedIndex].artistName!))")
         self.tempstrings.append("")
@@ -55,12 +58,12 @@ class DetailPodCastViewController: UIViewController ,DetailPodcastViewController
             temp = joined
         }
         self.tempstrings.append("")
-        self.tempstrings.append("Genre :\(temp)")
+        self.tempstrings.append("Genre :  \(temp)")
         ResManager.attributedString(tempstrings: tempstrings, textView: self.detailView.textView)
         self.detailView.textView.font = ResManager.Font.thin(16)
+        self.detailView.textView.textColor = UIColor.white
         self.detailView.textView.adjustFontSize = true
         url = "\(podcastArray![selectedIndex].url!)"
-        
     }
     public func addBackButton(){
         let newBackButton = UIBarButtonItem(image: UIImage(named: "Back")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.back(sender:)))
@@ -71,24 +74,19 @@ class DetailPodCastViewController: UIViewController ,DetailPodcastViewController
         _ = navigationController?.popViewController(animated: true)
     }
     
-    
-    func showSafariVC(for url: String) {
-        guard let url = URL(string: url) else {
-            //Show an invalid URL error alert
-            print("error in the url")
-            return
-        }
-        
-        let safariVC = SFSafariViewController(url: url)
-        present(safariVC, animated: true)
-    }
     func navigateItunes() {
-        showSafariVC(for: url!)
-//        print(url!)
-//        if #available(iOS 10.0, *) {
-//            UIApplication.shared.open(URL(string: "\(url!)")!, options: [:], completionHandler: nil)
-//        } else {
-//            UIApplication.shared.openURL(URL(string: "\(url!)")!)
-//        }
+        if #available(iOS 10.0, *) {
+            UIApplication.shared.open(URL(string: "\(url!)")!, options: [:], completionHandler: nil)
+        } else {
+            UIApplication.shared.openURL(URL(string: "\(url!)")!)
+        }
     }
+    func createGradientLayer() {
+        gradientLayer = CAGradientLayer()
+        gradientLayer.frame = self.detailView.frame
+        gradientLayer.colors = [(self.detailView.imageView.image?.averageColor)!.cgColor, UIColor.black.cgColor]
+        self.detailView.layer.insertSublayer(gradientLayer!, at: 0)
+    }
+    
+    
 }
